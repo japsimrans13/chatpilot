@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  version: 'v1'
+  title: 'Customer Support API'
+servers:
+  - url: 'https://abc881a2-751a-438d-abdd-eccd6321d7a5.mock.pstmn.io'
+paths:
+  /greetings:
+    get:
+      summary: 'List of greetings'
+      operationId: listGreetings
+      tags:
+        - Greetings
+      #parameters:
+      #  - name: id
+      #    in: query
+      #    description: ID of the user
+      #    required: true
+      #    schema:
+      #      type: integer
+      #      format: int32
+      responses:
+        '200':
+          description: 'List of greetings'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Greetings'
+  /apology:
+    get:
+      summary: 'List of apologies'
+      operationId: listApologies
+      tags:
+        - Apologies
+      responses:
+        '200':
+          description: 'List of apologies'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apologies'
+  /solutions:
+    get:
+      summary: 'List of solutions'
+      operationId: listSolutions
+      tags:
+        - Solutions
+      responses:
+        '200':
+          description: 'List of solutions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solutions'
+  /ticket:
+    post:
+      summary: 'Add a ticket'
+      operationId: addTicket
+      requestBody:
+          required: true
+          description: Ticket that will be generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+      tags:
+        - Tickets
+      responses:
+        '201':
+          description: 'Add Ticket'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'                
+components:
+  schemas:
+    Greetings:
+      type: array
+      items:
+          $ref: '#/components/schemas/Greeting'
+    Greeting:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+            type: string
+            description: A greeting message
+    Apologies:
+      type: array
+      items:
+          $ref: '#/components/schemas/Apology'
+    Apology:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+            type: string
+            description: An apology message
+    Solutions:
+      type: array
+      items:
+          $ref: '#/components/schemas/Solution'
+    Solution:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+            type: string
+            description: An possible solution
+    Ticket:
+      type: object
+      required:
+        - id
+        - message
+      properties:
+        id:
+            type: string
+            description: The unique identifier for the ticket that was generated
+        message:
+            type: string
+            description: The solution the customer wants        
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []
