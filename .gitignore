@@ -1,2 +1,7 @@
 .env
 .replit
+cust-support-api/node_modules/
+discord/
+requests/
+dotenv/
+nanoid/
